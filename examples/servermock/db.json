@@ -1,0 +1,12 @@
+{
+  "volumes": {
+    "items": [
+      {
+        "id" : 1,
+        "volumeInfo" : {
+          "title": "JavaScript: The Good Parts"
+        }
+      }
+    ]
+  }
+}
