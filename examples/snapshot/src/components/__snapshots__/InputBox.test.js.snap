@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering an input box 1`] = `
+Array [
+  <h1>
+    Hello
+  </h1>,
+  <input
+    onChange={[Function]}
+    type="text"
+    value=""
+  />,
+]
+`;
