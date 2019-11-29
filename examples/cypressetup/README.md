@@ -84,3 +84,49 @@ describe('Login Test', function() {
 
 ```
 
+## Lägg till Cypress till GitLab CI/CD
+
+För att köra Cypress headless med Electron, så behöver vi lägga till några kommandon i package.json:
+```
+"cypress:run": "cypress run",
+"cypress:e2e:ci": "start-server-and-test start http://localhost:3000 cypress:run"
+```
+
+Nu behöver vi uppdatera `.gitlab-ci.yml`-filen så att den kör Cypress-testerna som en del av test-steget:
+
+```
+image: node:10.16.0
+
+variables:
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+cache:
+  paths:
+    - node_modules/
+    - cache/Cypress
+
+test:
+  image: cypress/base:10
+  stage: test
+  before_script: 
+    - npm install 
+  script:
+    - npm run cypress:e2e:ci
+
+pages:
+  stage: deploy
+  before_script: 
+    - npm install
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+
+```
+
+Om vi pushar in till GitLab-repot nu, så borde även Cypress-testerna köras, och sedan lanseras den nya inloggningsfunktionen 
+
+
