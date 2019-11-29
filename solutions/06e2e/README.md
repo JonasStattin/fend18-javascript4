@@ -4,7 +4,6 @@
 
 Skriv ny funktionalitet och tester för följande:
  * Logga ut
- * Skapa en ny användare
- * Byta en inloggad användares lösenord
- * Ta bort en inloggad användare
+ * Skapa ett inlägg (spara inlägg i local storage)
+ * Ta bort ett inlägg (ta bort inlägg från local storage)
  
