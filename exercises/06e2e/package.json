@@ -2,6 +2,7 @@
   "name": "06",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/my-cool-login-app",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
