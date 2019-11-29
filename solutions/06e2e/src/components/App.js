@@ -37,7 +37,7 @@ class App extends Component {
             {this.state.user}
           </button>
         )}
-        <Login loginSuccessful={this.loginSuccessful} />
+        <Login user={this.state.user} loginSuccessful={this.loginSuccessful} />
       </div>
     );
   }

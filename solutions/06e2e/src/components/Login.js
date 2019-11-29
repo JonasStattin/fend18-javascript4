@@ -5,7 +5,8 @@ import { validateLogin } from '../utils/validation';
 
 class Login extends Component {
   static propTypes = {
-    loginSuccessful: PropTypes.func.isRequired
+    loginSuccessful: PropTypes.func.isRequired,
+    user: PropTypes.string
   };
 
   state = {
@@ -42,6 +43,19 @@ class Login extends Component {
 
   handleChange = ({ target }) => this.setState({ [target.name]: target.value });
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.user) {
+      return {
+        message: { type: 'SUCCESS', body: 'Logged in' }
+      }
+    } else if(state.message.type === 'SUCCESS') {
+      return {
+        message: { type: '', body: '' }
+      }
+    }
+    return state
+  }
+
   render() {
     return (
       <form
@@ -50,35 +64,39 @@ class Login extends Component {
         className="flex flex-col items-center w-1/2 mx-auto mt-8"
       >
         <Message message={this.state.message} />
-        <label htmlFor="email" className="mb-4 w-full">
-          Email <br />
-          <input
-            type="email"
-            name="email"
-            id="email"
-            onChange={this.handleChange}
-            value={this.state.email}
-            placeholder="zero@cool.gg"
-            className="my-4 p-2 rounded shadow border w-full"
-          />
-        </label>
-        <label htmlFor="password" className="mb-4  w-full">
-          Password <br />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            placeholder="8 length, 1 uppercase, 1 digit"
-            className="mb-8 mt-4 p-2 rounded shadow border  w-full"
-          />
-        </label>
-        <input
-          type="submit"
-          value="Login"
-          className="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded"
-        />
+        {!this.props.user && (
+          <>
+            <label htmlFor="email" className="mb-4 w-full">
+              Email <br />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                onChange={this.handleChange}
+                value={this.state.email}
+                placeholder="zero@cool.gg"
+                className="my-4 p-2 rounded shadow border w-full"
+              />
+            </label>
+            <label htmlFor="password" className="mb-4  w-full">
+              Password <br />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="8 length, 1 uppercase, 1 digit"
+                className="mb-8 mt-4 p-2 rounded shadow border  w-full"
+              />
+            </label>
+            <input
+              type="submit"
+              value="Login"
+              className="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded"
+            />
+          </>
+        )}
       </form>
     );
   }
