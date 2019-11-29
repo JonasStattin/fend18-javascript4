@@ -10,3 +10,16 @@ export function getUserFromLocalStorage(){
 export function removeUserFromLocalStorage(){
   localStorage.removeItem('user');
 }
+
+export function addPostToLocalStorage(post){
+  let posts = localStorage.getItem('msgposts');
+  if (!posts) { posts = [] }
+  posts.push(post)
+  localStorage.setItem('msgposts', JSON.stringify(posts));
+  return posts;
+}
+
+export function getPostsFromLocalStorage() {
+  const posts = localStorage.getItem('msgposts');
+  return JSON.parse(posts) || []; 
+} 
