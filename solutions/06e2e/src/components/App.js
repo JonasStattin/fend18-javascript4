@@ -5,7 +5,8 @@ import Posts from './Posts';
 import {
   removeUserFromLocalStorage,
   saveUserToLocalStorage,
-  addPostToLocalStorage
+  addPostToLocalStorage,
+  removePostFromLocalStorage
 } from '../utils/localStorage';
 
 class App extends Component {
@@ -35,6 +36,11 @@ class App extends Component {
     this.setState({ posts });
   }
 
+  onRemovePost = post => {
+    const posts = removePostFromLocalStorage(post);
+    this.setState({ posts })
+  }
+
   render() {
     return (
       <div>
@@ -46,7 +52,7 @@ class App extends Component {
             >
               {this.state.user}
             </button>
-            <Posts posts={this.state.posts} onPost={this.onPost} />
+            <Posts posts={this.state.posts} onPost={this.onPost} onRemovePost={this.onRemovePost} />
           </>
         )}
         <Login user={this.state.user} loginSuccessful={this.loginSuccessful} />

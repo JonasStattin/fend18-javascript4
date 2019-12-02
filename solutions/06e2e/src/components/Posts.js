@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Post from './Post';
 
 class Posts extends Component {
   static propTypes = {
     posts: PropTypes.array,
-    onPost: PropTypes.func
+    onPost: PropTypes.func,
+    onRemovePost: PropTypes.func
   };
 
   state = {
@@ -15,12 +17,14 @@ class Posts extends Component {
     e.preventDefault();
     const { post } = this.state;
     this.props.onPost(post);
+    this.setState({
+      post: ''
+    })
   };
 
   handleChange = ({ target }) => this.setState({ [target.name]: target.value });
 
   render() {
-    console.log(this.props.posts)
     return (
       <>
         <form
@@ -46,9 +50,9 @@ class Posts extends Component {
               className="bg-purple hover:bg-purple-dark text-white font-bold py-2 px-4 rounded"
             />
         </form>
-        <ul>
+        <ul className="container mx-auto">
           {this.props.posts.map((post, i) => {
-          return <li key={i}>{post}</li>
+            return <Post key={i} post={post} onRemovePost={this.props.onRemovePost} />
           })}
         </ul>
       </>
