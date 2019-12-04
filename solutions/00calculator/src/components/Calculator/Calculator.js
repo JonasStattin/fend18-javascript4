@@ -1,79 +1,89 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
-const ADD = 'ADD';
-const SUB = 'SUB';
-const MULT = 'MULT';
-const DIV = 'DIV';
-const NONE = 'NONE';
+export default class Calculator extends Component {
+  state = {
+    output: 0,
+    storedValue: null,
+    operator: null,
+    previousKeyType: null,
+  }
 
-let lastValue;
-let enteredValue;
-let useMethod = NONE;
-let isCalced = false;
-let hasNewInput = false;
+  keypad = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 
-export default () => {
-  const [currentValue, setCurrentValue] = useState(0);
-
-  const keypad = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-
-  function updateValue(val) {
-    if (isCalced) {
-      setCurrentValue(val);
-      enteredValue = val;
-      isCalced = false;
+  handleNumKey = (key) => {
+    let newState = {};
+    if (this.state.previousKeyType === 'num') {
+      newState.output = parseInt(this.state.output + '' + key)
     } else {
-      enteredValue = parseInt(currentValue + '' + val);
-      setCurrentValue(enteredValue);
+      newState.storedValue = this.state.output
+      newState.output = key
     }
-    hasNewInput = true;
+
+    newState.previousKeyType = 'num'
+
+    this.setState(newState);
   }
 
-  function updateMethod(val) {
-    if (hasNewInput) {
-      calc();
-      useMethod = val;
+  handleOperatorKey = (operator) => {
+    if (this.state.previousKeyType !== 'operator') {
+      this.setState({
+        ...this.calc(),
+        operator,
+        previousKeyType: 'operator'
+      })
     }
   }
 
-  function calc() {
-    let newValue = enteredValue
+  handleCalcKey = () => {
+    this.setState({
+      ...this.calc(),
+      operator: null,
+      previousKeyType: 'equals'
+    })
+  }
 
-    if (lastValue) {
-      switch(useMethod) {
-        case ADD:
-          newValue = lastValue +enteredValue;
+  calc = () => {
+    if (this.state.storedValue && this.state.operator) {
+      let result;
+      switch(this.state.operator) {
+        case 'add':
+          result = this.state.storedValue + this.state.output
           break;
-        case SUB:
-          newValue = lastValue - enteredValue;
+        case 'sub':
+          result = this.state.storedValue - this.state.output
           break;
-        case MULT:
-          newValue = lastValue * enteredValue;
+        case 'mul':
+          result = this.state.storedValue * this.state.output
           break;
-        case DIV:
-          newValue = lastValue / enteredValue;
+        case 'div':
+          result = this.state.storedValue / this.state.output
           break;
-        default:
-          newValue = enteredValue;
+        default: 
           break;
       }
+      return {
+        output: result,
+        storedValue: this.state.output
+      }
     }
-
-    lastValue = newValue;
-    setCurrentValue(newValue);
-    isCalced = true;
-    hasNewInput = false;
+    return {}
   }
 
-  return (
-    <>
-      <div>{currentValue}</div>
-      {keypad.map(key => <button key={key} onClick={() => updateValue(key)}>{key}</button>)}
-      <button onClick={() => updateMethod(ADD)}>+</button>
-      <button onClick={() => updateMethod(SUB)}>-</button>
-      <button onClick={() => updateMethod(MULT)}>*</button>
-      <button onClick={() => updateMethod(DIV)}>/</button>
-      <button onClick={calc}>=</button>
+  render() {
+    return (
+      <>
+      <div>{this.state.output}</div>
+      {this.keypad.map(key => {
+        return (
+          <button key={key} onClick={() => this.handleNumKey(key)}>{key}</button>
+        )
+      })}
+      <button onClick={() => this.handleOperatorKey('add')}>+</button>
+      <button onClick={() => this.handleOperatorKey('sub')}>-</button>
+      <button onClick={() => this.handleOperatorKey('mul')}>*</button>
+      <button onClick={() => this.handleOperatorKey('div')}>/</button>
+      <button onClick={this.handleCalcKey}>=</button>
     </>
-  );
+    )
+  }
 }
