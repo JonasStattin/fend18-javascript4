@@ -1,0 +1,24 @@
+{
+  "name": "babelsetup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": ["@babel/env"]
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead"
+    ,"> 0.2%"
+  ]
+}
