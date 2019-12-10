@@ -1,27 +1,33 @@
 {
-  "name": "a-new-demo-project",
+  "name": "webpacktemp",
   "version": "1.0.0",
   "description": "",
-  "main": "/src/app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/jonasstattin/a-new-demo-project.git"
-  },
+  "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
     "build": "webpack --config ./webpack.config.build.js"
   },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
     "babel-loader": "^8.0.6",
-    "css-loader": "^3.2.0",
+    "css-loader": "^3.3.0",
     "html-webpack-plugin": "^3.2.0",
-    "style-loader": "^1.0.0",
+    "style-loader": "^1.0.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2"
-  }
+  },
+  "babel": {
+    "presets": ["@babel/env"]
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "> 0.2%"
+  ]
 }
