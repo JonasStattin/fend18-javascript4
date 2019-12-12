@@ -11,21 +11,25 @@ const fn = () => 1;
 
 Just nu har vi ingen script runner, så vi måste köra Babels CLI från där filen ligger i node_modules
 
-./node_modules/.bin/babel src --out-dir lib
+npx babel src --out-dir lib
+
+Eller använda npx:
+
+npx babel src --out-dir lib
 
 Just nu görs ingen meningsfull transformering. Vi måste berätta för Babel HUR koden skall transformeras med plugins och presets. Vi testar att använda ett plugin:
 
 
 npm install --save-dev @babel/plugin-transform-arrow-functions
 
-./node_modules/.bin/babel src --out-dir lib --plugins=@babel/plugin-transform-arrow-functions
+npx babel src --out-dir lib --out-dir lib --plugins=@babel/plugin-transform-arrow-functions
 
 
 En kombination av plugins kallas för presets, och en vanlig preset är env: "@babel/preset-env takes any target environments you've specified and checks them against its mappings to compile a list of plugins and passes it to Babel."
 
 npm install --save-dev @babel/preset-env
 
-./node_modules/.bin/babel src --out-dir lib --presets=@babel/env
+npx babel src --out-dir lib --presets=@babel/env
 
 
 Vi kan lägga till lite mer exempelkod och se hur den transformeras:
@@ -52,7 +56,7 @@ För att göra det enklare kan vi använda konfigurationsfiler för att berätta
   "presets": ["@babel/env"]
 }
 
-./node_modules/.bin/babel src --out-dir lib
+npx babel src --out-dir lib
 
 
 Vi kan också specificera vilka "targets" vi skall nå med vår transformering. Dessa targets bygger på ett open source-projekt som heter browserlist. Vi kan antingen specificera browsers så här:
