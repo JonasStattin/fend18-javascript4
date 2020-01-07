@@ -8,6 +8,12 @@ it('data from api should be json', () => {
   });
 });
 
+it('data from api should be json', () => {
+  return loadRates().then(returnData => {
+    expect(Object.keys(returnData).length).toBeGreaterThan(0);
+  });
+});
+
 describe('mapObjectToArray', () => {
   it('mapObjectToArray should return array', () => {
     const testObject = { AUD: 1.5, SEK: 1.6 };

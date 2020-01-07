@@ -9,6 +9,12 @@ it('button state should be enabled from start', () => {
   expect(wrapper.state().disabled).toBe(false);
 })
 
+it('button state should be disabled on click, check props', () => {
+  const wrapper = mount(<Button onClick={() => {}} />);
+  wrapper.find('[data-test="button"]').simulate('click');
+  expect(wrapper.find('[data-test="button"]').get(0).props.disabled).toBe(true);
+})
+
 it('button state should be disabled on click, check state', () => {
   const wrapper = mount(<Button onClick={() => {}} />);
   expect(wrapper.state().disabled).toBe(false);
