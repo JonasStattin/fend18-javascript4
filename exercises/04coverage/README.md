@@ -16,7 +16,7 @@ Kör igenom testerna en gång:
 `yarn test` eller `npm run test`
 
 Kolla test coverage:
-`yarn test --coverage` eller `npm run test -- --coverage`
+`yarn test --coverage --watchAll=false` eller `npm run test -- --coverage --watchAll=false`
 
 # Övningsuppgifter
 
